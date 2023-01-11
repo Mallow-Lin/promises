@@ -6,13 +6,28 @@ var fs = require('fs');
 var request = require('needle');
 
 // This function should retrieve the first line of the file at `filePath`
-var pluckFirstLineFromFile = function (filePath) {
-  // TODO
+var pluckFirstLineFromFile = function (filePath, callback) {
+  fs.readFile(filePath, function(err, data) {
+    console.log(filePath);
+    if (err) {
+      return callback(err);
+    }
+    var output = data.toString().split('\n')[0];
+    callback(null, output);
+    // console.log('output: ', output);
+    // console.log('data: ', data.toString());
+  });
 };
-
 // This function should retrieve the status code of a GET request to `url`
-var getStatusCode = function (url) {
-  // TODO
+var getStatusCode = function (url, callback) {
+  request.get(url, function (err, response) {
+    if (err) {//TODO: handle err
+      return callback(err);
+    } else {
+      var statusCode = response.statusCode;
+      callback(null, statusCode);
+    }
+  });
 };
 
 // Export these functions so we can test them and reuse them in later exercises
