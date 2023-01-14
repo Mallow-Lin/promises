@@ -20,7 +20,8 @@ var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
       return promisification.getGitHubProfileAsync(username);
     })
     .then((userProfile) => {
-      return fs.writeFileSync(writeFilePath, JSON.stringify(userProfile), { flag: 'a' });
+      console.log(userProfile);
+      return fs.writeFileSync(writeFilePath, JSON.stringify(userProfile));
     })
     .catch((err) => {
       console.log(err);
